@@ -22,8 +22,8 @@ There's a war on, in case nobody mentioned it. I haven't the time to get down on
 
 ## Install
 
-1. Download the mod's zip from [Releases](../../releases), or copy the mod's folder from this repository.
-2. Put the mod's folder in `<game>\Mods\`, keeping the folder's name, such as `<game>\Mods\brighter_forage\`. A zip can be extracted straight into `<game>\Mods\`. Create the `Mods` folder if it isn't there.
+1. Download the mod's zip from [Releases](../../releases), or copy the mod's folder from this repository. A mod with several versions has one zip per version, and its other versions' folders are under `optional\<mod>\`: take only one.
+2. Put the mod's folder in `<game>\Mods\`, named after the mod, such as `<game>\Mods\brighter_forage\`. From a zip, open it and drag the folder inside it into `<game>\Mods\`. A folder copied from `optional\` has to be renamed to the mod's name. Create the `Mods` folder if it isn't there.
 3. Start the game.
 
 `<game>` is the game's install folder. On Steam that is usually `C:\Program Files (x86)\Steam\steamapps\common\KingdomComeDeliverance2`.

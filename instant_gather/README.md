@@ -25,7 +25,7 @@ Thirty Marigolds used to take me the better part of a morning. Now it takes abou
 ## Install
 
 1. Download the zip from [Releases](https://github.com/malvinly/kcd2/releases).
-2. Extract it into `<game>\Mods\`, so you end up with `<game>\Mods\instant_gather\`. Make the `Mods` folder if you don't have one.
+2. Open the zip and drag the `instant_gather` folder inside it into `<game>\Mods\`, so you end up with `<game>\Mods\instant_gather\`. Make the `Mods` folder if you don't have one.
 3. Start the game and go and bother a meadow.
 
 `<game>` is where the game is installed. On Steam that's usually `C:\Program Files (x86)\Steam\steamapps\common\KingdomComeDeliverance2`.
