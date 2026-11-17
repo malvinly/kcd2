@@ -57,7 +57,7 @@ Mushrooms, nests and all the rest can each have their own colour in every versio
 
 ## Install
 
-1. Download one zip from [Releases](https://github.com/malvinly/kcd2/releases), under Assets. The one ending in `main` is two herb groups, the one ending in `one_herb_group` is one herb group, and the one ending in `full` is every herb on its own.
+1. Download one zip from [Releases](https://github.com/malvinly/kcd2/releases), under Assets, or from the Files tab on [Nexus Mods](https://www.nexusmods.com/kingdomcomedeliverance2/mods/4020). On Releases, the one ending in `main` is two herb groups, the one ending in `one_herb_group` is one herb group, and the one ending in `full` is every herb on its own. On Nexus, the main file is two herb groups, and the two optional files are one herb group and every herb on its own.
 2. Open the zip and drag the `brighter_forage` folder inside it into `<game>\Mods\`, so you end up with `<game>\Mods\brighter_forage\`. Make the `Mods` folder if you don't have one.
 3. Start the game and go and find a meadow.
 

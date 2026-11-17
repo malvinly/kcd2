@@ -24,7 +24,7 @@ Thirty Marigolds used to take me the better part of a morning. Now it takes abou
 
 ## Install
 
-1. Download the zip from [Releases](https://github.com/malvinly/kcd2/releases).
+1. Download the zip from [Releases](https://github.com/malvinly/kcd2/releases), or from the Files tab on [Nexus Mods](https://www.nexusmods.com/kingdomcomedeliverance2/mods/4022).
 2. Open the zip and drag the `instant_gather` folder inside it into `<game>\Mods\`, so you end up with `<game>\Mods\instant_gather\`. Make the `Mods` folder if you don't have one.
 3. Start the game and go and bother a meadow.
 

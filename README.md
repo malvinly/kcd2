@@ -10,7 +10,7 @@ Have you ever tried to find one particular weed in a meadow full of weeds? I hav
 
 ![One meadow, split down the middle: the left half as it normally looks, the right half with the pulse on and the herbs glowing magenta](docs/brighter_forage/pulse-off-on.jpg)
 
-[Read more](brighter_forage/README.md) · [Download 0.4.0](https://github.com/malvinly/kcd2/releases/tag/brighter_forage-v0.4.0)
+[Read more](brighter_forage/README.md) · [Download 0.4.0](https://github.com/malvinly/kcd2/releases/tag/brighter_forage-v0.4.0) · [Nexus Mods](https://www.nexusmods.com/kingdomcomedeliverance2/mods/4020)
 
 ## Instant Gather
 
@@ -18,7 +18,7 @@ There's a war on, in case nobody mentioned it. I haven't the time to get down on
 
 ![Two Marigolds picked one after the other: an arm reaches out and each is gone, with no kneeling and no change of camera](docs/instant_gather/two-picks.webp)
 
-[Read more](instant_gather/README.md) · [Download 0.3.0](https://github.com/malvinly/kcd2/releases/tag/instant_gather-v0.3.0)
+[Read more](instant_gather/README.md) · [Download 0.3.0](https://github.com/malvinly/kcd2/releases/tag/instant_gather-v0.3.0) · [Nexus Mods](https://www.nexusmods.com/kingdomcomedeliverance2/mods/4022)
 
 ## Install
 
