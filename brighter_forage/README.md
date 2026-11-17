@@ -4,7 +4,7 @@
 >
 > Henry of Skalitz
 
-Alright, look. I'm a blacksmith's son. I can forge a sword, lose at dice, and get knocked flat by a man half my size. What I can't do, it turns out, is tell sage from the forty other green things growing next to it.
+Alright, look. I'm a blacksmith's son. I can forge a sword, lose at dice, and get knocked flat by a man half my size. What I can't do, it turns out, is tell Sage from the forty other green things growing next to it.
 
 And everyone wants herbs. Every herb woman, every alchemist, every lad with a cough. It's always nine of something, and it's always the something that looks exactly like grass. So I've spent a fair bit of this war bent over in a meadow, squinting. Very heroic, I know.
 
@@ -45,7 +45,7 @@ There's a file called `settings.cfg` in the mod's folder. Open it in Notepad. I 
 | How long it lasts | `brighter_forage_seconds 30` | Any number of seconds above 0. Much longer than 30 hasn't been tried, so you're on your own there |
 | Each colour | `brighter_forage_color sage magenta` | One line per thing. Change the last word to `magenta`, `gold`, `off`, or your own colour as three numbers with commas and no spaces, such as `20,14,0` (that one's gold) |
 
-- **`off`** leaves that one out of the pulse. Handy if you're sick of the sight of nettles. I am. They sting like the devil.
+- **`off`** leaves that one out of the pulse. Handy if you're sick of the sight of Nettles. I am. They sting like the devil.
 - **Changes apply** the next time you start the game.
 - **To apply them now,** open the console with `~`, type `exec mods/brighter_forage/settings.cfg` and press Enter. If you changed the key, the old one keeps working too until you restart. Two keys. Wonderful.
 
