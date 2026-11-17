@@ -45,9 +45,9 @@ All three make the same things brighter, and they look exactly the same until yo
 
 A "group" is nothing clever. It's a handful of herbs that glow in one colour together. You can change that colour, but every herb in the group changes with it. And every group is a bit more work for your computer, whatever colour you give it.
 
-- **Two herb groups: the main one, and the one I'd pick.** The herbs glow in two colours. Belladonna and Herb Paris glow gold, and the other fourteen glow magenta. You can change either colour. About 5% slower.
+- **Two herb groups: the main one, and the one I'd pick.** The herbs glow in two colours. Belladonna and Herb Paris glow gold, and the other fourteen glow magenta. You can change either colour, but not which herbs are in which group. About 5% slower.
 - **One herb group: the easiest on your computer.** All sixteen herbs glow in one colour, magenta to start with. You can change it, but it's the same for every herb. About 3.5% slower. Pick this if your computer is slow, or you just want every frame you can get.
-- **Every herb on its own: the hardest on your computer.** No groups at all. Each of the sixteen herbs can have a colour of its own, so Mint can be one colour and Poppy another, or you can switch off all but the ones you're looking for. About 11% slower. Pick this only if you want that, and your computer has frames to spare.
+- **Every herb on its own: the hardest on your computer.** No groups at all. Each of the sixteen herbs can have a colour of its own, so you can choose your own herbs to glow gold, or switch off all but the ones you're looking for. About 11% slower. Pick this only if you want that, and your computer has frames to spare.
 
 That's in a meadow full of herbs, which is as bad as it gets. Away from the herbs, none of the three slows the game at all.
 
