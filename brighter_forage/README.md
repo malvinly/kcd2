@@ -10,7 +10,7 @@ And everyone wants herbs. Every herb woman, every alchemist, every lad with a co
 
 This mod sorts that out. The things worth picking are brighter, so they stand out from the things that aren't. And for when that isn't enough, there's a key that lights up the lot.
 
-![One meadow, split down the middle: the left half as it normally looks, the right half with the pulse on and the herbs glowing magenta](../images/brighter_forage/pulse-off-on.jpg)
+![One meadow, split down the middle: the left half as it normally looks, the right half with the pulse on and the herbs glowing magenta](../docs/brighter_forage/pulse-off-on.jpg)
 
 ## What it does
 
@@ -31,9 +31,9 @@ Still can't see them? Fine. Neither can I, half the time.
 
 Subtle it isn't. A proper herb woman would box my ears for it. But I've yet to see one find Wormwood any quicker.
 
-![The pulse up close: magenta herbs beside a wheat field, with a few glowing gold among them](../images/brighter_forage/pulse-closeup.jpg)
+![The pulse up close: magenta herbs beside a wheat field, with a few glowing gold among them](../docs/brighter_forage/pulse-closeup.jpg)
 
-![A bird's nest in a pine tree, glowing magenta during the pulse](../images/brighter_forage/pulse-nest.jpg)
+![A bird's nest in a pine tree, glowing magenta during the pulse](../docs/brighter_forage/pulse-nest.jpg)
 
 ## Changing the key, the time and the colours
 

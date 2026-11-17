@@ -1,6 +1,6 @@
 # Kingdom Come: Deliverance II mods
 
-My mods for Kingdom Come: Deliverance II, ready to install. Each mod is a folder at the top of this repository, and each is independent of the others. The mods are built in a private repository. Only finished builds are published here.
+My mods for Kingdom Come: Deliverance II, ready to install. Each mod is a folder at the top of this repository, and each is independent of the others. The `docs` folder holds their screenshots and Nexus descriptions. The mods are built in a private repository. Only finished builds are published here.
 
 They have been tested against game version 1.5.6 (Steam).
 
@@ -8,7 +8,7 @@ They have been tested against game version 1.5.6 (Steam).
 
 Have you ever tried to find one particular weed in a meadow full of weeds? I have. For hours. Now the ones worth picking stand out, and so do nests, beehives, fish traps, buried treasure and graves. And one key lights them all up, for the days my eyes give up before I do.
 
-![One meadow, split down the middle: the left half as it normally looks, the right half with the pulse on and the herbs glowing magenta](images/brighter_forage/pulse-off-on.jpg)
+![One meadow, split down the middle: the left half as it normally looks, the right half with the pulse on and the herbs glowing magenta](docs/brighter_forage/pulse-off-on.jpg)
 
 [Read more](brighter_forage/README.md) · [Download 0.3.1](https://github.com/malvinly/kcd2/releases/tag/brighter_forage-v0.3.1)
 
