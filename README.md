@@ -4,10 +4,19 @@ My mods for Kingdom Come: Deliverance II, ready to install. Each mod is a folder
 
 They have been tested against game version 1.5.6 (Steam).
 
-| Mod | What it does | Version | Folder |
-| --- | --- | --- | --- |
-| [Brighter Forage](brighter_forage/README.md) | Pickable herbs and mushrooms, bird's nests, beehives, fish traps, buried treasure and graves are brighter so they stand out, and a key (F5 to start with) makes them glow for 30 seconds | 0.3.1 | [`brighter_forage`](brighter_forage) |
-| [Instant Gather](instant_gather/README.md) | Gathering a herb or mushroom is a quick reach of the arm, with no kneeling and no third-person camera | 0.3.0 | [`instant_gather`](instant_gather) |
+## Brighter Forage
+
+Have you ever tried to find one particular weed in a meadow full of weeds? I have. For hours. Now the ones worth picking stand out, and so do nests, beehives, fish traps, buried treasure and graves. And one key lights them all up, for the days my eyes give up before I do.
+
+![One meadow, split down the middle: the left half as it normally looks, the right half with the pulse on and the herbs glowing magenta](images/brighter_forage/pulse-off-on.jpg)
+
+[Read more](brighter_forage/README.md) · [Download 0.3.1](https://github.com/malvinly/kcd2/releases/tag/brighter_forage-v0.3.1)
+
+## Instant Gather
+
+There's a war on, in case nobody mentioned it. I haven't the time to get down on my knees for every Nettle in Bohemia. So now I just reach out and take it: no kneeling, no camera swinging round. Herbs and mushrooms both.
+
+[Read more](instant_gather/README.md) · [Download 0.3.0](https://github.com/malvinly/kcd2/releases/tag/instant_gather-v0.3.0)
 
 ## Install
 
