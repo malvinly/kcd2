@@ -1,13 +1,20 @@
-# Packages one mod folder into a zip for Nexus Mods and makes a GitHub Release.
+# Packages one mod into zips for Nexus Mods and makes a GitHub Release.
 #
 # Runs only when a tag named <modid>-v<version> is pushed, such as
-# brighter_forage-v0.3.1. Commits and branch pushes don't run it.
+# brighter_forage-v0.4.0. Commits and branch pushes don't run it.
 #
 # It doesn't build anything: the build needs the installed game's paks.
-# It packages the folder as committed at the tag.
+# It packages the folders as committed at the tag.
 #
-# The zip is <modid>-<version>.zip with the <modid>/ folder at the top, holding
-# only the files the game loads:
+# The main zip is <modid>-<version>.zip, made from the <modid>/ folder.
+#
+# A mod may also have optional versions, each a folder optional/<modid>/<id>/
+# with its own mod.manifest (same modid and version as the main one). Each
+# becomes <modid>-<version>-<id>.zip on the same release. A mod without an
+# optional/<modid>/ folder gets the main zip only.
+#
+# Every zip has the <modid>/ folder at the top, so any of them extracts
+# straight into the game's Mods folder, and holds only the files the game loads:
 #   mod.manifest
 #   *.cfg directly in the mod folder
 #   *.pak under data/
@@ -42,7 +49,7 @@ jobs:
           $tag = $env:GITHUB_REF_NAME
           $cut = $tag.LastIndexOf('-v')
           if ($cut -lt 1 -or $cut + 2 -ge $tag.Length) {
-            Fail "Tag '$tag' is not <modid>-v<version>, such as brighter_forage-v0.3.1."
+            Fail "Tag '$tag' is not <modid>-v<version>, such as brighter_forage-v0.4.0."
           }
           $modId = $tag.Substring(0, $cut)
           $version = $tag.Substring($cut + 2)
@@ -54,38 +61,60 @@ jobs:
           if (-not (Test-Path -LiteralPath $modId -PathType Container)) {
             Fail "Tag '$tag': there is no folder '$modId' at the top of the repository."
           }
-          $manifestPath = Join-Path $modId 'mod.manifest'
-          if (-not (Test-Path -LiteralPath $manifestPath -PathType Leaf)) {
-            Fail "Folder '$modId' has no mod.manifest."
+
+          # Checks one folder's mod.manifest against the tag and returns its <name>.
+          function Test-Manifest($folder) {
+            $manifestPath = Join-Path $folder 'mod.manifest'
+            if (-not (Test-Path -LiteralPath $manifestPath -PathType Leaf)) {
+              Fail "Folder '$folder' has no mod.manifest."
+            }
+
+            $info = ([xml](Get-Content -LiteralPath $manifestPath -Raw)).kcd_mod.info
+            $manifestModId = "$($info.modid)".Trim()
+            $manifestVersion = "$($info.version)".Trim()
+            $name = "$($info.name)".Trim()
+            Write-Host "Manifest $($manifestPath): name '$name', modid '$manifestModId', version '$manifestVersion'"
+
+            if ($manifestModId -cne $modId) {
+              Fail "$manifestPath has <modid> '$manifestModId', but tag '$tag' says '$modId'."
+            }
+            if ($manifestVersion -cne $version) {
+              Fail "$manifestPath has <version> '$manifestVersion', but tag '$tag' says '$version'."
+            }
+            return $name
           }
 
-          $info = ([xml](Get-Content -LiteralPath $manifestPath -Raw)).kcd_mod.info
-          $manifestModId = "$($info.modid)".Trim()
-          $manifestVersion = "$($info.version)".Trim()
-          $name = "$($info.name)".Trim()
-          Write-Host "Manifest: name '$name', modid '$manifestModId', version '$manifestVersion'"
-
-          if ($manifestModId -cne $modId) {
-            Fail "$manifestPath has <modid> '$manifestModId', but the folder (from tag '$tag') is '$modId'."
-          }
-          if ($manifestVersion -cne $version) {
-            Fail "$manifestPath has <version> '$manifestVersion', but tag '$tag' says '$version'."
-          }
+          $name = Test-Manifest $modId
           if (-not $name) {
-            Fail "$manifestPath has no <name>, which the release title needs."
+            Fail "$modId/mod.manifest has no <name>, which the release title needs."
+          }
+
+          # Optional versions: every folder directly under optional/<modid>/.
+          $optionalRoot = Join-Path 'optional' $modId
+          if (Test-Path -LiteralPath $optionalRoot -PathType Container) {
+            foreach ($folder in Get-ChildItem -LiteralPath $optionalRoot -Directory | Sort-Object Name) {
+              if ($folder.Name -notmatch '^[A-Za-z0-9_]+$') {
+                Fail "'$optionalRoot/$($folder.Name)' is not an optional version name (letters, digits and underscores only)."
+              }
+              [void](Test-Manifest (Join-Path $optionalRoot $folder.Name))
+            }
+          } else {
+            Write-Host "No folder '$optionalRoot': main zip only."
           }
 
           "MOD_ID=$modId", "MOD_VERSION=$version", "MOD_NAME=$name" |
             Add-Content -LiteralPath $env:GITHUB_ENV
 
-      - name: Make the zip
+      - name: Make the zips
         run: |
           function Fail($message) { Write-Host "::error::$message"; exit 1 }
 
           $modId = $env:MOD_ID
-          $root = (Resolve-Path -LiteralPath $modId).Path
+          $zipDir = Join-Path $env:RUNNER_TEMP 'release-zips'
+          New-Item -ItemType Directory -Path $zipDir -Force | Out-Null
+          Add-Type -AssemblyName System.IO.Compression, System.IO.Compression.FileSystem
 
-          # Paths inside the mod folder that go into the zip. Anything that
+          # Paths inside a mod folder that go into its zip. Anything that
           # matches none of these is left out.
           $include = @(
             '^mod\.manifest$'           # the manifest
@@ -94,53 +123,68 @@ jobs:
             '^localization/.+\.pak$'    # paks under Localization/
           )
 
-          $files = Get-ChildItem -LiteralPath $root -Recurse -File -Force | ForEach-Object {
-            [pscustomobject]@{
-              Full = $_.FullName
-              Rel  = [IO.Path]::GetRelativePath($root, $_.FullName).Replace('\', '/')
-              Size = $_.Length
+          # Zips one folder as $zipName, with <modid>/ as the top folder inside.
+          function New-ModZip($folder, $zipName) {
+            $root = (Resolve-Path -LiteralPath $folder).Path
+            Write-Host "== $zipName from $folder/"
+
+            $files = Get-ChildItem -LiteralPath $root -Recurse -File -Force | ForEach-Object {
+              [pscustomobject]@{
+                Full = $_.FullName
+                Rel  = [IO.Path]::GetRelativePath($root, $_.FullName).Replace('\', '/')
+                Size = $_.Length
+              }
+            } | Sort-Object Rel
+
+            $in = @()
+            $out = @()
+            foreach ($file in $files) {
+              if ($include | Where-Object { $file.Rel -match $_ }) { $in += $file } else { $out += $file }
             }
-          } | Sort-Object Rel
 
-          $in = @()
-          $out = @()
-          foreach ($file in $files) {
-            if ($include | Where-Object { $file.Rel -match $_ }) { $in += $file } else { $out += $file }
-          }
+            Write-Host "Included ($($in.Count)):"
+            foreach ($file in $in) { Write-Host "  $modId/$($file.Rel)  ($($file.Size) bytes)" }
+            Write-Host "Left out ($($out.Count)):"
+            foreach ($file in $out) { Write-Host "  $folder/$($file.Rel)" }
 
-          Write-Host "Included ($($in.Count)):"
-          foreach ($file in $in) { Write-Host "  $modId/$($file.Rel)  ($($file.Size) bytes)" }
-          Write-Host "Left out ($($out.Count)):"
-          foreach ($file in $out) { Write-Host "  $modId/$($file.Rel)" }
-
-          if (-not ($in | Where-Object { $_.Rel -match '\.pak$' })) {
-            Fail "Folder '$modId' has no .pak under data/ or Localization/, so there is nothing for the game to load."
-          }
-
-          $zipPath = Join-Path $env:RUNNER_TEMP "$modId-$($env:MOD_VERSION).zip"
-          Add-Type -AssemblyName System.IO.Compression, System.IO.Compression.FileSystem
-          $zip = [IO.Compression.ZipFile]::Open($zipPath, 'Create')
-          try {
-            foreach ($file in $in) {
-              [void][IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip, $file.Full, "$modId/$($file.Rel)", 'Optimal')
+            if (-not ($in | Where-Object { $_.Rel -match '\.pak$' })) {
+              Fail "Folder '$folder' has no .pak under data/ or Localization/, so there is nothing for the game to load."
             }
-          } finally {
-            $zip.Dispose()
+
+            $zipPath = Join-Path $zipDir $zipName
+            $zip = [IO.Compression.ZipFile]::Open($zipPath, 'Create')
+            try {
+              foreach ($file in $in) {
+                [void][IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip, $file.Full, "$modId/$($file.Rel)", 'Optimal')
+              }
+            } finally {
+              $zip.Dispose()
+            }
+
+            Write-Host "Zip: $zipPath ($((Get-Item -LiteralPath $zipPath).Length) bytes)"
+            $zip = [IO.Compression.ZipFile]::OpenRead($zipPath)
+            try {
+              foreach ($entry in $zip.Entries) { Write-Host "  $($entry.FullName)  ($($entry.Length) bytes)" }
+            } finally {
+              $zip.Dispose()
+            }
           }
 
-          Write-Host "Zip: $zipPath ($((Get-Item -LiteralPath $zipPath).Length) bytes)"
-          $zip = [IO.Compression.ZipFile]::OpenRead($zipPath)
-          try {
-            foreach ($entry in $zip.Entries) { Write-Host "  $($entry.FullName)  ($($entry.Length) bytes)" }
-          } finally {
-            $zip.Dispose()
+          New-ModZip $modId "$modId-$($env:MOD_VERSION).zip"
+
+          $optionalRoot = Join-Path 'optional' $modId
+          if (Test-Path -LiteralPath $optionalRoot -PathType Container) {
+            foreach ($folder in Get-ChildItem -LiteralPath $optionalRoot -Directory | Sort-Object Name) {
+              New-ModZip "optional/$modId/$($folder.Name)" "$modId-$($env:MOD_VERSION)-$($folder.Name).zip"
+            }
           }
 
-          "ZIP_PATH=$zipPath" | Add-Content -LiteralPath $env:GITHUB_ENV
+          "ZIP_DIR=$zipDir" | Add-Content -LiteralPath $env:GITHUB_ENV
 
       - name: Create the GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          gh release create $env:GITHUB_REF_NAME $env:ZIP_PATH --verify-tag --title "$($env:MOD_NAME) $($env:MOD_VERSION)" --notes ""
+          $zips = (Get-ChildItem -LiteralPath $env:ZIP_DIR -Filter '*.zip' | Sort-Object Name).FullName
+          gh release create $env:GITHUB_REF_NAME @zips --verify-tag --title "$($env:MOD_NAME) $($env:MOD_VERSION)" --notes ""
