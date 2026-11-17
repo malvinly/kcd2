@@ -7,6 +7,7 @@ They have been tested against game version 1.5.6 (Steam).
 | Mod | What it does | Version | Folder |
 | --- | --- | --- | --- |
 | [Brighter Forage](brighter_forage/README.md) | Pickable herbs and mushrooms, bird's nests, beehives, fish traps, buried treasure and graves are brighter so they stand out, and a key (F5 to start with) makes them glow for 30 seconds | 0.3.1 | [`brighter_forage`](brighter_forage) |
+| [Instant Gather](instant_gather/README.md) | Gathering a herb or mushroom is a quick reach of the arm, with no kneeling and no third-person camera | 0.3.0 | [`instant_gather`](instant_gather) |
 
 ## Install
 
