@@ -40,7 +40,6 @@ Delete `<game>\Mods\instant_gather`. The mod keeps nothing in your saves, so the
 
 ## Good to know
 
-- **After a game update, take the mod out until there's a new version.** This one matters. The mod swaps in its own copies of four of the game's animation files, so after a patch it would be carrying old ones, and other animations could go wrong with it.
 - **Tested on game version 1.5.6 (Steam).**
 - **The HUD blinks.** It hides for a split second on every pick. That's the game's doing, not mine, and I haven't found a way round it.
 - **It won't get along with** any other mod that changes the same four animation files. That means other mods that speed up herb picking, and some that change how I move. Pick one or the other.
