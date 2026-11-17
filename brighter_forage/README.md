@@ -66,7 +66,7 @@ Delete `<game>\Mods\brighter_forage`. That's it. The mod keeps nothing in your s
 ## Good to know
 
 - **Tested on game version 1.5.6 (Steam).**
-- **It won't get along with** any other mod that changes the same plants, nests, hives, traps, sacks or graves, or one that uses the same key. That means other mods that make herbs or nests easier to see. Pick one or the other.
+- **It won't get along with** any other mod that changes the same plants, nests, hives, traps, buried treasure or graves, or one that uses the same key. That means other mods that make herbs or nests easier to see. Pick one or the other.
 - **Some things glow that you can't loot.** A few nests and hives are only there for decoration, like the ones at a fisherman's stall, and they get brighter and pulse all the same. I've been fooled. More than once.
 - **The ground around buried treasure and graves** gets brighter along with them. I'd call that a favour.
 - **Not everything's been looked at up close yet.** I've seen the herbs with my own eyes, and they look right. The mushrooms and the rest pulse as they should, but I haven't gone round and looked at every one of them out in the world yet.

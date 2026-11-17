@@ -10,6 +10,8 @@ I've been stabbed, shot at and left for dead this year, and it's the kneeling th
 
 This mod sorts that out. I reach out a hand, I take the thing, and I'm on my way before anyone can ask me for a favour.
 
+![Two Marigolds picked one after the other: an arm reaches out and each is gone, with no kneeling and no change of camera](../docs/instant_gather/two-picks.webp)
+
 ## What it does
 
 - **No kneeling.** Gathering a herb or a mushroom is one quick reach of the arm, about a fifth of a second.
