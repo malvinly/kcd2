@@ -1,0 +1,3 @@
+# Store and check out every file exactly as committed: no line-ending conversion.
+# The mod folders hold build output, and the release zip must match it byte for byte.
+* -text
